@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech & Cyber Path | مسار التقنية والسيبراني</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandYellow: '#FACC15',
+                        brandGreen: '#4ADE80',
+                        brandLightGreen: '#86EFAC',
+                        brandDarkGreen: '#15803D'
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Inter:wght@400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Tajawal', 'Inter', sans-serif;
+            background-color: #FAFAFA;
+        }
+        .hero-bg {
+            background: linear-gradient(135deg, rgba(250,204,21,0.18) 0%, rgba(74,222,128,0.22) 100%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 antialiased min-h-screen flex flex-col justify-between">
+
+    <!-- Header Navigation -->
+    <header class="bg-white/95 backdrop-blur-md sticky top-0 z-50 border-b border-green-100 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Shield & Path Icon Logo -->
+            <div class="flex items-center space-x-3 space-x-reverse cursor-pointer" onclick="switchTab('tracks')">
+                <div class="w-12 h-12 bg-gradient-to-tr from-brandYellow to-brandGreen rounded-2xl flex items-center justify-center shadow-md shadow-green-200 text-slate-900 font-bold text-xl transform hover:scale-105 transition-transform">
+                    <i class="fa-solid fa-shield-halved text-2xl text-slate-900"></i>
+                </div>
+                <div>
+                    <span class="text-xl font-extrabold tracking-tight text-gray-900 block leading-none">Tech & Cyber <span class="text-green-600">Path</span></span>
+                    <span class="text-xs font-semibold text-gray-500 tracking-wide" id="logoSub" data-i18n="logoSub">مسار التقنية والسيبراني</span>
+                </div>
+            </div>
+
+            <!-- Navigation Links -->
+            <nav class="hidden md:flex items-center space-x-2 space-x-reverse text-sm font-bold">
+                <button onclick="switchTab('tracks')" id="nav-tracks" data-i18n="navTracks" class="px-4 py-2 rounded-xl text-green-800 bg-green-100 transition-all">دليل التخصصات</button>
+                <button onclick="switchTab('roadmap')" id="nav-roadmap" data-i18n="navRoadmap" class="px-4 py-2 rounded-xl text-gray-600 hover:text-green-700 transition-all">خريطة التقدم</button>
+                <button onclick="switchTab('quiz')" id="nav-quiz" data-i18n="navQuiz" class="px-4 py-2 rounded-xl text-gray-600 hover:text-green-700 transition-all">اختبار تحديد المسار</button>
+                <button onclick="switchTab('guidance')" id="nav-guidance" data-i18n="navGuidance" class="px-4 py-2 rounded-xl text-gray-600 hover:text-green-700 transition-all">دليل التخطيط</button>
+            </nav>
+
+            <!-- Language Switcher -->
+            <div class="flex items-center space-x-4 space-x-reverse">
+                <button onclick="toggleLanguage()" class="flex items-center gap-2 bg-yellow-100 hover:bg-yellow-200 text-yellow-900 font-bold px-4 py-2 rounded-xl transition-all border border-yellow-300 text-sm shadow-sm">
+                    <i class="fa-solid fa-globe"></i>
+                    <span id="langBtnText">English</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- Hero Banner -->
+        <div class="hero-bg rounded-3xl p-8 mb-10 border border-green-200 text-center relative overflow-hidden shadow-sm">
+            <div class="inline-flex items-center gap-2 bg-white/90 border border-green-300 px-4 py-1.5 rounded-full text-green-800 text-sm font-semibold mb-4 shadow-sm">
+                <i class="fa-solid fa-route text-yellow-500"></i>
+                <span id="heroBadge" data-i18n="heroBadge">اضغط على أي تخصص للانتقال فوراً لبطاقة خريطة الطريق الخاصة به</span>
+            </div>
+            <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4" id="heroTitle" data-i18n="heroTitle">اختر وتتبع مسارك التقني والسيبراني بثقة</h1>
+            <p class="text-gray-600 max-w-2xl mx-auto text-base md:text-lg leading-relaxed" id="heroDesc" data-i18n="heroDesc">دليل تفاعلي شامل يوضح خريطة طريق التخصصات للطلاب والمستجدين لتسهيل التخطيط الأكاديمي والمهني.</p>
+        </div>
+
+        <!-- Tab 1: Tracks Section -->
+        <div id="tab-tracks" class="tab-content">
+            <div class="text-center mb-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-2" id="tracksTitle" data-i18n="tracksTitle">دليل التخصصات والمسارات</h2>
+                <p class="text-gray-600 text-sm" id="tracksSub" data-i18n="tracksSub">اضغط على التخصص لعرض خريطة الطريق الكاملة والمهارات المقترحة</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Track 1: Cybersecurity -->
+                <div onclick="openRoadmap('cyber')" class="bg-white rounded-2xl p-6 border border-green-200 hover:border-yellow-400 hover:shadow-lg transition-all cursor-pointer flex flex-col justify-between group">
+                    <div>
+                        <div class="w-12 h-12 bg-yellow-100 group-hover:bg-yellow-200 rounded-xl flex items-center justify-center text-yellow-700 text-xl mb-4 transition-all">
+                            <i class="fa-solid fa-user-shield"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-900 mb-2 group-hover:text-green-700 transition-colors" id="track-cyber-title" data-i18n="trackCyberTitle">الأمن السيبراني (Cybersecurity)</h3>
+                        <p class="text-gray-600 text-xs leading-relaxed mb-4" id="track-cyber-desc" data-i18n="trackCyberDesc">حماية الأنظمة والشبكات والبيانات من الهجمات الرقمية واكتشاف الثغرات وتأمين البنى التحتية.</p>
+                    </div>
+                    <div class="bg-green-50 p-3 rounded-xl border border-green-100 text-xs flex justify-between items-center">
+                        <span class="font-bold text-green-800" data-i18n="viewRoadmapCyber">عرض خريطة السايبر الكاملة</span>
+                        <i class="fa-solid fa-arrow-left text-green-600 rtl:inline ltr:hidden"></i>
+                        <i class="fa-solid fa-arrow-right text-green-600 ltr:inline rtl:hidden"></i>
+                    </div>
+                </div>
+
+                <!-- Track 2: Computer Science -->
+                <div onclick="openRoadmap('cs')" class="bg-white rounded-2xl p-6 border border-green-200 hover:border-yellow-400 hover:shadow-lg transition-all cursor-pointer flex flex-col justify-between group">
+                    <div>
+                        <div class="w-12 h-12 bg-green-100 group-hover:bg-green-200 rounded-xl flex items-center justify-center text-green-700 text-xl mb-4 transition-all">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-900 mb-2 group-hover:text-green-700 transition-colors" id="track-cs-title" data-i18n="trackCsTitle">علوم الحاسب (Computer Science)</h3>
+                        <p class="text-gray-600 text-xs leading-relaxed mb-4" id="track-cs-desc" data-i18n="trackCsDesc">الأساس المتين للبرمجة، الخوارزميات، حل المشكلات، وهياكل البيانات وتطوير النظم البرمجية المعقدة.</p>
+                    </div>
+                    <div class="bg-yellow-50 p-3 rounded-xl border border-yellow-200 text-xs flex justify-between items-center">
+                        <span class="font-bold text-yellow-800" data-i18n="viewRoadmapCs">عرض خريطة علوم الحاسب</span>
+                        <i class="fa-solid fa-arrow-left text-yellow-600 rtl:inline ltr:hidden"></i>
+                        <i class="fa-solid fa-arrow-right text-yellow-600 ltr:inline rtl:hidden"></i>
+                    </div>
+                </div>
+
+                <!-- Track 3: AI & Data -->
+                <div onclick="openRoadmap('ai')" class="bg-white rounded-2xl p-6 border border-green-200 hover:border-yellow-400 hover:shadow-lg transition-all cursor-pointer flex flex-col justify-between group">
+                    <div>
+                        <div class="w-12 h-12 bg-lime-100 group-hover:bg-lime-200 rounded-xl flex items-center justify-center text-lime-700 text-xl mb-4 transition-all">
+                            <i class="fa-solid fa-brain"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-900 mb-2 group-hover:text-green-700 transition-colors" id="track-ai-title" data-i18n="trackAiTitle">الذكاء الاصطناعي (AI & Data)</h3>
+                        <p class="text-gray-600 text-xs leading-relaxed mb-4" id="track-ai-desc" data-i18n="trackAiDesc">تحليل البيانات واستخراج النماذج والتعلم الآلي (Machine Learning) وتطوير الأنظمة الذكية.</p>
+                    </div>
+                    <div class="bg-green-50 p-3 rounded-xl border border-green-100 text-xs flex justify-between items-center">
+                        <span class="font-bold text-green-800" data-i18n="viewRoadmapAi">عرض خريطة الذكاء الاصطناعي</span>
+                        <i class="fa-solid fa-arrow-left text-green-600 rtl:inline ltr:hidden"></i>
+                        <i class="fa-solid fa-arrow-right text-green-600 ltr:inline rtl:hidden"></i>
+                    </div>
+                </div>
+
+                <!-- Track 4: Software Engineering -->
+                <div onclick="openRoadmap('swe')" class="bg-white rounded-2xl p-6 border border-green-200 hover:border-yellow-400 hover:shadow-lg transition-all cursor-pointer flex flex-col justify-between group">
+                    <div>
+                        <div class="w-12 h-12 bg-yellow-100 group-hover:bg-yellow-200 rounded-xl flex items-center justify-center text-yellow-700 text-xl mb-4 transition-all">
+                            <i class="fa-solid fa-cubes"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-900 mb-2 group-hover:text-green-700 transition-colors" id="track-swe-title" data-i18n="trackSweTitle">هندسة البرمجيات (Software Eng.)</h3>
+                        <p class="text-gray-600 text-xs leading-relaxed mb-4" id="track-swe-desc" data-i18n="trackSweDesc">إدارة دورة حياة البرمجيات، الهندسة المعمارية للنظام، واختبار وجودة الأنظمة البرمجية.</p>
+                    </div>
+                    <div class="bg-yellow-50 p-3 rounded-xl border border-yellow-200 text-xs flex justify-between items-center">
+                        <span class="font-bold text-yellow-800" data-i18n="viewRoadmapSwe">عرض خريطة هندسة البرمجيات</span>
+                        <i class="fa-solid fa-arrow-left text-yellow-600 rtl:inline ltr:hidden"></i>
+                        <i class="fa-solid fa-arrow-right text-yellow-600 ltr:inline rtl:hidden"></i>
+                    </div>
+                </div>
+
+                <!-- Track 5: HCI & UI/UX -->
+                <div onclick="openRoadmap('hci')" class="bg-white rounded-2xl p-6 border border-green-200 hover:border-yellow-400 hover:shadow-lg transition-all cursor-pointer flex flex-col justify-between group">
+                    <div>
+                        <div class="w-12 h-12 bg-green-100 group-hover:bg-green-200 rounded-xl flex items-center justify-center text-green-700 text-xl mb-4 transition-all">
+                            <i class="fa-solid fa-display"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-900 mb-2 group-hover:text-green-700 transition-colors" id="track-hci-title" data-i18n="trackHciTitle">تفاعل الإنسان والحاسب (HCI)</h3>
+                        <p class="text-gray-600 text-xs leading-relaxed mb-4" id="track-hci-desc" data-i18n="trackHciDesc">تصميم واجهات وتجارب المستخدم وسهولة الاستخدام وفهم سلوك المستخدم الرقمي.</p>
+                    </div>
+                    <div class="bg-green-50 p-3 rounded-xl border border-green-100 text-xs flex justify-between items-center">
+                        <span class="font-bold text-green-800" data-i18n="viewRoadmapHci">عرض خريطة HCI & UI/UX</span>
+                        <i class="fa-solid fa-arrow-left text-green-600 rtl:inline ltr:hidden"></i>
+                        <i class="fa-solid fa-arrow-right text-green-600 ltr:inline rtl:hidden"></i>
+                    </div>
+                </div>
+
+                <!-- Track 6: Computer Engineering -->
+                <div onclick="openRoadmap('ce')" class="bg-white rounded-2xl p-6 border border-green-200 hover:border-yellow-400 hover:shadow-lg transition-all cursor-pointer flex flex-col justify-between group">
+                    <div>
+                        <div class="w-12 h-12 bg-yellow-100 group-hover:bg-yellow-200 rounded-xl flex items-center justify-center text-yellow-700 text-xl mb-4 transition-all">
+                            <i class="fa-solid fa-microchip"></i>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-900 mb-2 group-hover:text-green-700 transition-colors" id="track-ce-title" data-i18n="trackCeTitle">هندسة الحاسب (Computer Eng.)</h3>
+                        <p class="text-gray-600 text-xs leading-relaxed mb-4" id="track-ce-desc" data-i18n="trackCeDesc">الربط بين العتاد (Hardware) والبرمجيات، الأنظمة المدمجة، والشبكات المعمارية.</p>
+                    </div>
+                    <div class="bg-yellow-50 p-3 rounded-xl border border-yellow-200 text-xs flex justify-between items-center">
+                        <span class="font-bold text-yellow-800" data-i18n="viewRoadmapCe">عرض خريطة هندسة الحاسب</span>
+                        <i class="fa-solid fa-arrow-left text-yellow-600 rtl:inline ltr:hidden"></i>
+                        <i class="fa-solid fa-arrow-right text-yellow-600 ltr:inline rtl:hidden"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 2: Roadmap Section -->
+        <div id="tab-roadmap" class="tab-content hidden">
+            <div class="bg-white rounded-3xl p-6 border border-green-200 shadow-sm mb-8">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-4 mb-6 border-b pb-4 border-gray-100">
+                    <div>
+                        <span class="text-xs font-bold text-green-700 bg-green-100 px-3 py-1 rounded-full uppercase" id="selectedTrackName">الأمن السيبراني</span>
+                        <h2 class="text-xl font-bold text-gray-900 mt-2" id="roadmapTitle" data-i18n="roadmapTitle">خريطة الطريق المخصصة وتتبع المهارات</h2>
+                        <p class="text-xs text-gray-500" id="roadmapSub" data-i18n="roadmapSub">حدد المهارات التي أنجزتها لترفع نسبة تقدمك في هذا المسار</p>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="text-sm font-bold text-gray-700" data-i18n="progressLbl">التقدم:</span>
+                        <div class="w-36 bg-gray-200 rounded-full h-3">
+                            <div id="progressBar" class="bg-brandGreen h-3 rounded-full transition-all" style="width: 0%"></div>
+                        </div>
+                        <span id="progressText" class="text-sm font-bold text-green-700">0%</span>
+                    </div>
+                </div>
+
+                <div id="roadmapLevelsContainer" class="space-y-6">
+                    <!-- Dynamic Roadmap levels and skill items are injected here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 3: Quiz Section -->
+        <div id="tab-quiz" class="tab-content hidden">
+            <div class="max-w-2xl mx-auto bg-white rounded-3xl p-8 border border-green-200 shadow-sm text-center">
+                <div class="w-16 h-16 bg-yellow-100 text-yellow-700 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-4">
+                    <i class="fa-solid fa-clipboard-question"></i>
+                </div>
+                <h2 class="text-xl font-bold text-gray-900 mb-2" id="quizTitle" data-i18n="quizTitle">اختبار تحديد المسار التقني</h2>
+                <p class="text-xs text-gray-600 mb-6" id="quizSub" data-i18n="quizSub">أجب عن هذه الأسئلة القصيرة لمعرفة التخصص الأنسب لطبيعة تفكيرك وميولك</p>
+
+                <div id="quizContent" class="text-right ltr:text-left">
+                    <!-- Quiz dynamic state -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 4: Guidance Section -->
+        <div id="tab-guidance" class="tab-content hidden">
+            <div class="bg-white rounded-3xl p-8 border border-green-200 shadow-sm">
+                <h2 class="text-xl font-bold text-gray-900 mb-4" id="guidanceTitle" data-i18n="guidanceTitle">قواعد التخطيط بدون تشتت</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs">
+                    <div class="bg-yellow-50 p-5 rounded-2xl border border-yellow-200 shadow-sm">
+                        <i class="fa-solid fa-bullseye text-yellow-700 text-xl mb-3"></i>
+                        <h3 class="font-bold text-gray-900 text-sm mb-2" data-i18n="rule1Title">ركز على المسار وليس الدورات</h3>
+                        <p class="text-gray-600 leading-relaxed" data-i18n="rule1Desc">لا تشغل نفسك بتجميع الشهادات الكثيرة، ركز على إتقان مهارات الخريطة بالترتيب.</p>
+                    </div>
+                    <div class="bg-green-50 p-5 rounded-2xl border border-green-200 shadow-sm">
+                        <i class="fa-solid fa-hammer text-green-700 text-xl mb-3"></i>
+                        <h3 class="font-bold text-gray-900 text-sm mb-2" data-i18n="rule2Title">التطبيق العملي أولاً</h3>
+                        <p class="text-gray-600 leading-relaxed" data-i18n="rule2Desc">كل مهارة تتعلمها اتبعها ببرنامج أو مشروع بسيط لتثبيت الفكرة في ذاكرتك.</p>
+                    </div>
+                    <div class="bg-lime-50 p-5 rounded-2xl border border-lime-200 shadow-sm">
+                        <i class="fa-solid fa-graduation-cap text-lime-700 text-xl mb-3"></i>
+                        <h3 class="font-bold text-gray-900 text-sm mb-2" data-i18n="rule3Title">استفد من مرحلتك الأكاديمية</h3>
+                        <p class="text-gray-600 leading-relaxed" data-i18n="rule3Desc">ربط مفاهيم المواد الجامعة بالتطبيق العملي في سوق العمل يمنحك تفوقاً واسعاً.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-green-200 py-6">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex items-center justify-center gap-2 mb-2">
+                <div class="w-7 h-7 bg-brandYellow rounded-lg flex items-center justify-center text-slate-900 font-bold text-xs">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <span class="font-extrabold text-gray-900 text-sm">Tech & Cyber Path</span>
+            </div>
+            <p class="text-xs text-gray-500" data-i18n="footerText">© 2026 دليل التخطيط الأكاديمي والمهني للطلاب والمستجدين في مجالات الحاسب والسايبر.</p>
+        </div>
+    </footer>
+
+    <script>
+        let currentLang = 'ar';
+        let currentActiveTrackKey = 'cyber';
+
+        const i18n = {
+            ar: {
+                logoSub: 'مسار التقنية والسيبراني',
+                navTracks: 'دليل التخصصات',
+                navRoadmap: 'خريطة التقدم',
+                navQuiz: 'اختبار تحديد المسار',
+                navGuidance: 'دليل التخطيط',
+                heroBadge: 'اضغط على أي تخصص للانتقال فوراً لبطاقة خريطة الطريق الخاصة به',
+                heroTitle: 'اختر وتتبع مسارك التقني والسيبراني بثقة',
+                heroDesc: 'دليل تفاعلي شامل يوضح خريطة طريق التخصصات للطلاب والمستجدين لتسهيل التخطيط الأكاديمي والمهني.',
+                tracksTitle: 'دليل التخصصات والمسارات',
+                tracksSub: 'اضغط على التخصص لعرض خريطة الطريق الكاملة والمهارات المقترحة',
+                trackCyberTitle: 'الأمن السيبراني (Cybersecurity)',
+                trackCyberDesc: 'حماية الأنظمة والشبكات والبيانات من الهجمات الرقمية واكتشاف الثغرات وتأمين البنى التحتية.',
+                viewRoadmapCyber: 'عرض خريطة السايبر الكاملة',
+                trackCsTitle: 'علوم الحاسب (Computer Science)',
+                trackCsDesc: 'الأساس المتين للبرمجة، الخوارزميات، حل المشكلات، وهياكل البيانات وتطوير النظم البرمجية المعقدة.',
+                viewRoadmapCs: 'عرض خريطة علوم الحاسب',
+                trackAiTitle: 'الذكاء الاصطناعي (AI & Data)',
+                trackAiDesc: 'تحليل البيانات واستخراج النماذج والتعلم الآلي (Machine Learning) وتطوير الأنظمة الذكية.',
+                viewRoadmapAi: 'عرض خريطة الذكاء الاصطناعي',
+                trackSweTitle: 'هندسة البرمجيات (Software Eng.)',
+                trackSweDesc: 'إدارة دورة حياة البرمجيات، الهندسة المعمارية للنظام، واختبار وجودة الأنظمة البرمجية.',
+                viewRoadmapSwe: 'عرض خريطة هندسة البرمجيات',
+                trackHciTitle: 'تفاعل الإنسان والحاسب (HCI)',
+                trackHciDesc: 'تصميم واجهات وتجارب المستخدم وسهولة الاستخدام وفهم سلوك المستخدم الرقمي.',
+                viewRoadmapHci: 'عرض خريطة HCI & UI/UX',
+                trackCeTitle: 'هندسة الحاسب (Computer Eng.)',
+                trackCeDesc: 'الربط بين العتاد (Hardware) والبرمجيات، الأنظمة المدمجة، والشبكات المعمارية.',
+                viewRoadmapCe: 'عرض خريطة هندسة الحاسب',
+                roadmapTitle: 'خريطة الطريق المخصصة وتتبع المهارات',
+                roadmapSub: 'حدد المهارات التي أنجزتها لترفع نسبة تقدمك في هذا المسار',
+                progressLbl: 'التقدم:',
+                quizTitle: 'اختبار تحديد المسار التقني',
+                quizSub: 'أجب عن هذه الأسئلة القصيرة لمعرفة التخصص الأنسب لطبيعة تفكيرك وميولك',
+                quizQ1: '1. ما الذي يثير اهتمامك ويرغب بعقلك عند التعامل مع التكنولوجيا؟',
+                quizOpt1: 'البحث عن الثغرات وحماية البيانات والشبكات من الهجوم',
+                quizOpt2: 'بناء التطبيقات والبرامج وحل المشكلات التفكيرية المعقدة',
+                quizOpt3: 'تحليل البيانات واستخراج النماذج والأنظمة الذكية التي تتنبأ',
+                quizResCyber: 'المسار الأنسب لك هو: **الأمن السيبراني (Cybersecurity)**. شغفك يميل للتفكير التحليلي للحماية والدفاع واكتشاف الثغرات.',
+                quizResCs: 'المسار الأنسب لك هو: **علوم الحاسب وهندسة البرمجيات (CS / SWE)**. شغفك يكمن في البناء البرمجي وحل المشكلات والخوارزميات.',
+                quizResAi: 'المسار الأنسب لك هو: **الذكاء الاصطناعي وتحليل البيانات (AI & Data)**. تفكيرك يتجه نحو البيانات والأنظمة الذكية والتنبؤ.',
+                viewRoadmapBtn: 'عرض خريطة هذا المسار الآن',
+                guidanceTitle: 'قواعد التخطيط بدون تشتت',
+                rule1Title: 'ركز على المسار وليس الدورات',
+                rule1Desc: 'لا تشغل نفسك بتجميع الشهادات الكثيرة، ركز على إتقان مهارات الخريطة بالترتيب.',
+                rule2Title: 'التطبيق العملي أولاً',
+                rule2Desc: 'كل مهارة تتعلمها اتبعها ببرنامج أو مشروع بسيط لتثبيت الفكرة في ذاكرتك.',
+                rule3Title: 'استفد من مرحلتك الأكاديمية',
+                rule3Desc: 'ربط مفاهيم المواد الجامعة بالتطبيق العملي في سوق العمل يمنحك تفوقاً واسعاً.',
+                footerText: '© 2026 دليل التخطيط الأكاديمي والمهني للطلاب والمستجدين في مجالات الحاسب والسايبر.'
+            },
+            en: {
+                logoSub: 'Tech & Cyber Pathways',
+                navTracks: 'Tracks Guide',
+                navRoadmap: 'Progress Roadmap',
+                navQuiz: 'Path Quiz',
+                navGuidance: 'Planning Guide',
+                heroBadge: 'Click any track to view its complete roadmap & skills',
+                heroTitle: 'Navigate Your Tech & Cyber Pathway with Confidence',
+                heroDesc: 'An interactive roadmap guide designed for university students & beginners to easily structure academic and career learning.',
+                tracksTitle: 'Specializations & Tracks Guide',
+                tracksSub: 'Click on any specialization to open its full interactive roadmap',
+                trackCyberTitle: 'Cybersecurity',
+                trackCyberDesc: 'Protect systems, networks, and data from cyber threats, discover vulnerabilities, and secure infrastructure.',
+                viewRoadmapCyber: 'View Full Cybersecurity Roadmap',
+                trackCsTitle: 'Computer Science (CS)',
+                trackCsDesc: 'The core foundation of programming, algorithms, problem-solving, data structures, and complex software systems.',
+                viewRoadmapCs: 'View Computer Science Roadmap',
+                trackAiTitle: 'Artificial Intelligence (AI & Data)',
+                trackAiDesc: 'Data analysis, pattern recognition, machine learning algorithms, and intelligent automated systems.',
+                viewRoadmapAi: 'View AI & Data Roadmap',
+                trackSweTitle: 'Software Engineering (SWE)',
+                trackSweDesc: 'Software lifecycle management, system architecture, quality assurance, and enterprise software engineering.',
+                viewRoadmapSwe: 'View Software Engineering Roadmap',
+                trackHciTitle: 'Human-Computer Interaction (HCI)',
+                trackHciDesc: 'User experience (UX) research, visual interface design (UI), usability testing, and digital interaction design.',
+                viewRoadmapHci: 'View HCI & UI/UX Roadmap',
+                trackCeTitle: 'Computer Engineering (CE)',
+                trackCeDesc: 'Bridging software and hardware, embedded system design, microprocessors, and network architecture.',
+                viewRoadmapCe: 'View Computer Engineering Roadmap',
+                roadmapTitle: 'Customized Roadmap & Skill Tracker',
+                roadmapSub: 'Check off completed skills to track your total progress percentage',
+                progressLbl: 'Progress:',
+                quizTitle: 'Tech Path Quiz',
+                quizSub: 'Answer these quick questions to discover which field aligns best with your mind',
+                quizQ1: '1. What excites you the most when interacting with technology?',
+                quizOpt1: 'Uncovering vulnerabilities, protecting network data, and stopping attacks',
+                quizOpt2: 'Building apps, writing clean code, and solving complex algorithmic challenges',
+                quizOpt3: 'Analyzing big data, predicting patterns, and building smart intelligent models',
+                quizResCyber: 'Your ideal track is: **Cybersecurity**. Your passion favors analytical thinking, threat defense, and ethical hacking.',
+                quizResCs: 'Your ideal track is: **Computer Science & Software Engineering**. You thrive on coding, logic, and architecture.',
+                quizResAi: 'Your ideal track is: **AI & Data Science**. Your mindset leans toward data modeling, prediction, and smart systems.',
+                viewRoadmapBtn: 'View Track Roadmap Now',
+                guidanceTitle: 'Focus Rules for Clear Planning',
+                rule1Title: 'Focus on Roadmaps, Not Course Hoarding',
+                rule1Desc: 'Avoid endlessly collecting certificates. Focus on mastering map skills sequentially.',
+                rule2Title: 'Hands-on Practice First',
+                rule2Desc: 'For every skill learned, build a hands-on mini project to solidify concepts in memory.',
+                rule3Title: 'Leverage Academic Fundamentals',
+                rule3Desc: 'Connecting university coursework with real industry skills gives you a competitive advantage.',
+                footerText: '© 2026 Academic & Career Guidance for Computer Science and Cybersecurity Students.'
+            }
+        };
+
+        const roadmapData = {
+            cyber: {
+                titleAr: 'الأمن السيبراني (Cybersecurity)',
+                titleEn: 'Cybersecurity Specialization',
+                levels: [
+                    { 
+                        nameAr: 'المستوى الأول: الأساسيات', 
+                        nameEn: 'Level 1: Fundamentals', 
+                        skillsAr: ['أساسيات شبكات الحاسب (Network+)', 'أساسيات أنظمة التشغيل (Linux & Windows)', 'مفاهيم التشفير والبروتوكولات (Cryptography)'],
+                        skillsEn: ['Computer Networking Basics (Network+)', 'Operating Systems Core (Linux & Windows)', 'Cryptography & Security Protocols']
+                    },
+                    { 
+                        nameAr: 'المستوى الثاني: التحليل والأمن', 
+                        nameEn: 'Level 2: Core Defense & Analysis', 
+                        skillsAr: ['تحليل الحزم والشبكات (Wireshark)', 'أساسيات الاختبار الأخلاقي (Ethical Hacking)', 'إدارة الثغرات الأمنية (Vulnerability Management)'],
+                        skillsEn: ['Packet Analysis & Traffic Monitoring (Wireshark)', 'Ethical Hacking Fundamentals (CEH)', 'Vulnerability Assessment & Patch Management']
+                    },
+                    { 
+                        nameAr: 'المستوى الثالث: التخصص المتقدم', 
+                        nameEn: 'Level 3: Advanced Specialization', 
+                        skillsAr: ['هندسة الحماية الجنائية (Digital Forensics)', 'اختبار اختراق التطبيقات والويب (Web Pentesting)', 'تحليل الملاوير والهندسة العكسية'],
+                        skillsEn: ['Digital Forensics & Incident Response (DFIR)', 'Web Application Penetration Testing', 'Malware Analysis & Reverse Engineering']
+                    }
+                ]
+            },
+            cs: {
+                titleAr: 'علوم الحاسب (Computer Science)',
+                titleEn: 'Computer Science Specialization',
+                levels: [
+                    { 
+                        nameAr: 'المستوى الأول: أساسيات البرمجة', 
+                        nameEn: 'Level 1: Programming Foundations', 
+                        skillsAr: ['البرمجة بلغة C++ أو Python', 'حل المشكلات والتفكير المنطقي', 'أساسيات الرياضيات المتقطعة (Discrete Math)'],
+                        skillsEn: ['Programming Foundations (C++ or Python)', 'Logic & Algorithmic Problem Solving', 'Discrete Mathematics Fundamentals']
+                    },
+                    { 
+                        nameAr: 'المستوى الثاني: الهياكل والنظم', 
+                        nameEn: 'Level 2: Data & Systems', 
+                        skillsAr: ['هياكل البيانات والخوارزميات (Data Structures)', 'مفاهيم أنظمة التشغيل والـ OOP', 'أساسيات قواعد البيانات DDL & DML'],
+                        skillsEn: ['Data Structures & Algorithms (DSA)', 'Object-Oriented Programming & OS Concepts', 'Relational Databases & SQL (DDL & DML)']
+                    },
+                    { 
+                        nameAr: 'المستوى الثالث: الهندسة والتخصص', 
+                        nameEn: 'Level 3: Advanced Computing', 
+                        skillsAr: ['معمارية الأنظمة والتصميم البرمجي', 'الحوسبة السحابية (Cloud Computing)', 'تطوير مشاريع برمجية متكاملة (Full-Stack)'],
+                        skillsEn: ['System Architecture & Software Design', 'Cloud Computing Concepts (AWS/Azure)', 'Full-Stack Software Development']
+                    }
+                ]
+            },
+            ai: {
+                titleAr: 'الذكاء الاصطناعي (AI & Data)',
+                titleEn: 'AI & Data Science Specialization',
+                levels: [
+                    { 
+                        nameAr: 'المستوى الأول: الإحصاء والبرمجة', 
+                        nameEn: 'Level 1: Math & Python', 
+                        skillsAr: ['أساسيات Python ومكتبات NumPy & Pandas', 'الاحتمالات والإحصاء الجبري', 'معالجة وتنظيف البيانات'],
+                        skillsEn: ['Python Data Stack (NumPy & Pandas)', 'Linear Algebra & Statistics', 'Data Preprocessing & Cleaning']
+                    },
+                    { 
+                        nameAr: 'المستوى الثاني: تعلم الآلة', 
+                        nameEn: 'Level 2: Machine Learning', 
+                        skillsAr: ['خوارزميات التعلم الخاضع وغير الخاضع (Supervised ML)', 'تقييم النماذج وتحسين الدقة', 'مكتبات Scikit-Learn'],
+                        skillsEn: ['Supervised & Unsupervised ML Algorithms', 'Model Evaluation & Hyperparameter Tuning', 'Scikit-Learn & ML Pipelines']
+                    },
+                    { 
+                        nameAr: 'المستوى الثالث: التعلم العميق', 
+                        nameEn: 'Level 3: Deep Learning & GenAI', 
+                        skillsAr: ['الشبكات العصبية الإصطناعية (Neural Networks)', 'معالجة اللغات الطبيعية (NLP)', 'نماذج الذكاء الاصطناعي التوليدي LLMs'],
+                        skillsEn: ['Deep Learning & Neural Networks (TensorFlow/PyTorch)', 'Natural Language Processing (NLP)', 'Generative AI & LLM Applications']
+                    }
+                ]
+            },
+            swe: {
+                titleAr: 'هندسة البرمجيات (Software Engineering)',
+                titleEn: 'Software Engineering Specialization',
+                levels: [
+                    { 
+                        nameAr: 'المستوى الأول: بناء وتصميم الأنظمة', 
+                        nameEn: 'Level 1: Software Design', 
+                        skillsAr: ['أساسيات البرمجة كائنية التوجه (OOP)', 'مخططات UML وتحليل المقتضيات', 'إدارة الإصدارات باستخدام Git & GitHub'],
+                        skillsEn: ['Object-Oriented Design Principles', 'UML Diagrams & Requirements Analysis', 'Version Control with Git & GitHub']
+                    },
+                    { 
+                        nameAr: 'المستوى الثاني: منهجيات العمل للجودة', 
+                        nameEn: 'Level 2: Agile & Quality', 
+                        skillsAr: ['منهجيات إدارة المشاريع (Agile & Scrum)', 'اختبار البرمجيات والجودة (Software Testing)', 'أنماط التصميم (Design Patterns)'],
+                        skillsEn: ['Agile & Scrum Methodologies', 'Software Testing & Quality Assurance', 'Software Design Patterns']
+                    },
+                    { 
+                        nameAr: 'المستوى الثالث: الهندسة المعمارية', 
+                        nameEn: 'Level 3: Architecture & DevOps', 
+                        skillsAr: ['بناء الـ Microservices وتصميم APIs', 'أدوات النشر والتكامل المستمر (CI/CD)', 'إدارة النظم على منصات مثل Docker'],
+                        skillsEn: ['Microservices & REST API Architecture', 'CI/CD Pipelines & Continuous Integration', 'Containerization with Docker & Deployment']
+                    }
+                ]
+            },
+            hci: {
+                titleAr: 'تفاعل الإنسان والحاسب (HCI)',
+                titleEn: 'HCI & UI/UX Specialization',
+                levels: [
+                    { 
+                        nameAr: 'المستوى الأول: أساسيات التجربة', 
+                        nameEn: 'Level 1: UX Basics', 
+                        skillsAr: ['مبادئ تصميم تجربة المستخدم (UX Principles)', 'أبحاث المستخدم ومقابلات الاحتياج', 'بناء نماذج العمل الهيكلية (Wireframing)'],
+                        skillsEn: ['User Experience (UX) Core Principles', 'User Research & Personas', 'Wireframing & Information Architecture']
+                    },
+                    { 
+                        nameAr: 'المستوى الثاني: التفاعل والواجهات', 
+                        nameEn: 'Level 2: Interactive UI', 
+                        skillsAr: ['تصميم الواجهات البصرية باستخدام Figma', 'اختبارات سهولة الاستخدام (Usability Testing)', 'تصميم التفاعل والنماذج الأولية (Prototypes)'],
+                        skillsEn: ['UI Design with Figma', 'Usability Testing & Feedback Loops', 'Interactive Prototyping']
+                    },
+                    { 
+                        nameAr: 'المستوى الثالث: إتاحة وتطوير', 
+                        nameEn: 'Level 3: Accessibility & Design System', 
+                        skillsAr: ['معايير إتاحة الوصول (Accessibility WCAG)', 'بناء وتطوير أنظمة التصميم (Design Systems)', 'ربط الواجهات وتنسيقها مع المطورين'],
+                        skillsEn: ['Web Accessibility Standards (WCAG)', 'Building Design Systems', 'Developer Handoff & UI Engineering']
+                    }
+                ]
+            },
+            ce: {
+                titleAr: 'هندسة الحاسب (Computer Engineering)',
+                titleEn: 'Computer Engineering Specialization',
+                levels: [
+                    { 
+                        nameAr: 'المستوى الأول: المنطق والعتاد', 
+                        nameEn: 'Level 1: Digital Logic', 
+                        skillsAr: ['أساسيات المنطق الرقمي والدوائر', 'لغة التجميع MIPS / Assembly', 'محاكاة الدوائر التقنية'],
+                        skillsEn: ['Digital Logic & Circuit Design', 'Assembly Language Programming (MIPS/x86)', 'Circuit Simulation Tools']
+                    },
+                    { 
+                        nameAr: 'المستوى الثاني: المعالجات والشبكات', 
+                        nameEn: 'Level 2: Processors & Embedded Systems', 
+                        skillsAr: ['معمارية المعالجات (Microprocessors)', 'برمجة المتحكمات والأنظمة المدمجة', 'توصيل وضبط بروتوكولات الشبكات'],
+                        skillsEn: ['Microprocessor Architecture', 'Embedded Microcontrollers (Arduino/STM32)', 'Hardware Communication Protocols']
+                    },
+                    { 
+                        nameAr: 'المستوى الثالث: إنترنت الأشياء والأنظمة', 
+                        nameEn: 'Level 3: Embedded IoT & Real-time OS', 
+                        skillsAr: ['تطوير مشاريع إنترنت الأشياء (IoT Systems)', 'برمجة الـ Real-Time Operating Systems', 'تكامل العتاد مع البرمجيات الذكية'],
+                        skillsEn: ['IoT Systems Development', 'Real-Time Operating Systems (RTOS)', 'Hardware-Software Integration']
+                    }
+                ]
+            }
+        };
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById('tab-' + tabId).classList.remove('hidden');
+
+            document.querySelectorAll('nav button').forEach(btn => {
+                btn.classList.remove('bg-green-100', 'text-green-800');
+                btn.classList.add('text-gray-600');
+            });
+
+            const activeNav = document.getElementById('nav-' + tabId);
+            if (activeNav) {
+                activeNav.classList.add('bg-green-100', 'text-green-800');
+                activeNav.classList.remove('text-gray-600');
+            }
+        }
+
+        function openRoadmap(trackKey) {
+            currentActiveTrackKey = trackKey;
+            renderRoadmap();
+            switchTab('roadmap');
+        }
+
+        function renderRoadmap() {
+            const data = roadmapData[currentActiveTrackKey] || roadmapData['cyber'];
+            document.getElementById('selectedTrackName').innerText = currentLang === 'ar' ? data.titleAr : data.titleEn;
+
+            let html = '';
+            data.levels.forEach((lvl, idx) => {
+                const colorClass = idx === 0 ? 'bg-green-50/50 border-green-100' : (idx === 1 ? 'bg-yellow-50/50 border-yellow-100' : 'bg-slate-50 border-gray-200');
+                const badgeColor = idx === 0 ? 'bg-brandGreen' : (idx === 1 ? 'bg-brandYellow' : 'bg-gray-300');
+                const levelName = currentLang === 'ar' ? lvl.nameAr : lvl.nameEn;
+                const skillsList = currentLang === 'ar' ? lvl.skillsAr : lvl.skillsEn;
+
+                html += `
+                    <div class="${colorClass} p-5 rounded-2xl border">
+                        <h3 class="font-bold text-gray-900 text-sm mb-3 flex items-center gap-2">
+                            <span class="w-6 h-6 ${badgeColor} text-slate-900 rounded-full flex items-center justify-center text-xs font-black">${idx + 1}</span>
+                            ${levelName}
+                        </h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                            ${skillsList.map(sk => `
+                                <label class="flex items-center gap-2 bg-white p-3 rounded-xl border border-gray-200 cursor-pointer hover:border-green-400">
+                                    <input type="checkbox" onchange="updateProgress()" class="w-4 h-4 text-green-600 rounded">
+                                    <span>${sk}</span>
+                                </label>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            });
+
+            document.getElementById('roadmapLevelsContainer').innerHTML = html;
+            updateProgress();
+        }
+
+        function renderQuiz() {
+            const t = i18n[currentLang];
+            document.getElementById('quizContent').innerHTML = `
+                <div class="bg-green-50/60 p-5 rounded-2xl mb-4 border border-green-100">
+                    <p class="font-bold text-sm text-gray-800 mb-3">${t.quizQ1}</p>
+                    <div class="space-y-2 text-xs">
+                        <button onclick="quizNext('cyber')" class="w-full text-right ltr:text-left p-3.5 bg-white rounded-xl border hover:border-green-400 transition-all font-medium">${t.quizOpt1}</button>
+                        <button onclick="quizNext('cs')" class="w-full text-right ltr:text-left p-3.5 bg-white rounded-xl border hover:border-green-400 transition-all font-medium">${t.quizOpt2}</button>
+                        <button onclick="quizNext('ai')" class="w-full text-right ltr:text-left p-3.5 bg-white rounded-xl border hover:border-green-400 transition-all font-medium">${t.quizOpt3}</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function quizNext(type) {
+            const t = i18n[currentLang];
+            let resText = "";
+            if(type === 'cyber') {
+                resText = t.quizResCyber;
+            } else if(type === 'cs') {
+                resText = t.quizResCs;
+            } else {
+                resText = t.quizResAi;
+            }
+
+            document.getElementById('quizContent').innerHTML = `
+                <div class="bg-green-100 p-6 rounded-2xl border border-green-300 text-center">
+                    <i class="fa-solid fa-circle-check text-green-700 text-3xl mb-3"></i>
+                    <p class="font-bold text-sm text-gray-900 leading-relaxed mb-4">${resText}</p>
+                    <button onclick="openRoadmap('${type}')" class="bg-brandGreen text-slate-900 font-bold text-xs px-5 py-2.5 rounded-xl shadow-sm hover:opacity-90 transition-opacity">${t.viewRoadmapBtn}</button>
+                </div>
+            `;
+        }
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            
+            document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+            document.documentElement.lang = currentLang;
+            
+            document.getElementById('langBtnText').innerText = currentLang === 'ar' ? 'English' : 'العربية';
+
+            // Translate static elements with data-i18n
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (i18n[currentLang][key]) {
+                    el.innerText = i18n[currentLang][key];
+                }
+            });
+
+            // Re-render dynamic sections
+            renderRoadmap();
+            renderQuiz();
+        }
+
+        function updateProgress() {
+            const checkboxes = document.querySelectorAll('#roadmapLevelsContainer input[type="checkbox"]');
+            const total = checkboxes.length;
+            if(total === 0) return;
+            let checked = 0;
+            checkboxes.forEach(cb => { if(cb.checked) checked++; });
+            const percentage = Math.round((checked / total) * 100);
+            document.getElementById('progressBar').style.width = percentage + '%';
+            document.getElementById('progressText').innerText = percentage + '%';
+        }
+
+        // Initialize application
+        window.onload = function() {
+            renderQuiz();
+            openRoadmap('cyber');
+            switchTab('tracks');
+        };
+    </script>
+</body>
+</html>
