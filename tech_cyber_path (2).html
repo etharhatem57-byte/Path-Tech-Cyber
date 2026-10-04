@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech & Cyber Path | مسار التقنية والسيبراني</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            DEFAULT: '#15803D',
+                            dark: '#0f5132',
+                            light: '#4ADE80',
+                            accent: '#FACC15',
+                            surface: '#F8FAFC',
+                            card: '#FFFFFF'
+                        }
+                    },
+                    fontFamily: {
+                        arabic: ['Tajawal', 'sans-serif'],
+                        english: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts: Tajawal & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Tajawal', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        body.lang-en {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col selection:bg-brand-light selection:text-slate-900" id="bodyRoot">
+
+    <!-- Header & Navigation -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Logo Brand -->
+            <div class="flex items-center space-x-3 rtl:space-x-reverse cursor-pointer" onclick="switchTab('home')">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-brand to-brand-dark flex items-center justify-center text-white shadow-md shadow-brand/20">
+                    <i class="fa-solid fa-shield-halved text-2xl text-brand-accent"></i>
+                </div>
+                <div>
+                    <h1 class="font-black text-lg text-slate-900 tracking-tight leading-tight" data-i18n="brand_title">مسار التقنية والسيبراني</h1>
+                    <p class="text-xs font-medium text-slate-500" data-i18n="brand_subtitle">Tech & Cyber Path</p>
+                </div>
+            </div>
+
+            <!-- Navigation Links -->
+            <nav class="hidden md:flex items-center space-x-1 rtl:space-x-reverse bg-slate-100 p-1.5 rounded-2xl border border-slate-200/80">
+                <button onclick="switchTab('home')" id="nav-home" class="px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 text-slate-600 hover:text-brand" data-i18n="nav_home">الرئيسية</button>
+                <button onclick="switchTab('tracks')" id="nav-tracks" class="px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 text-slate-600 hover:text-brand" data-i18n="nav_tracks">دليل المسارات</button>
+                <button onclick="switchTab('roadmap')" id="nav-roadmap" class="px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 text-slate-600 hover:text-brand" data-i18n="nav_roadmap">خريطة المهارات</button>
+                <button onclick="switchTab('quiz')" id="nav-quiz" class="px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 text-slate-600 hover:text-brand" data-i18n="nav_quiz">اختبار تحديد المسار</button>
+                <button onclick="switchTab('guide')" id="nav-guide" class="px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 text-slate-600 hover:text-brand" data-i18n="nav_guide">دليل التخطيط</button>
+            </nav>
+
+            <!-- Actions (Language Switch & Mobile Menu Toggle) -->
+            <div class="flex items-center space-x-3 rtl:space-x-reverse">
+                <button onclick="toggleLanguage()" class="flex items-center space-x-2 rtl:space-x-reverse px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-bold border border-slate-200 transition-all shadow-xs">
+                    <i class="fa-solid fa-globe text-brand"></i>
+                    <span id="langLabel">English</span>
+                </button>
+                <button onclick="toggleMobileMenu()" class="md:hidden p-2.5 rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200">
+                    <i class="fa-solid fa-bars text-lg"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-4 space-y-1">
+            <button onclick="switchTab('home'); toggleMobileMenu();" class="block w-full text-start px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-100" data-i18n="nav_home">الرئيسية</button>
+            <button onclick="switchTab('tracks'); toggleMobileMenu();" class="block w-full text-start px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-100" data-i18n="nav_tracks">دليل المسارات</button>
+            <button onclick="switchTab('roadmap'); toggleMobileMenu();" class="block w-full text-start px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-100" data-i18n="nav_roadmap">خريطة المهارات</button>
+            <button onclick="switchTab('quiz'); toggleMobileMenu();" class="block w-full text-start px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-100" data-i18n="nav_quiz">اختبار تحديد المسار</button>
+            <button onclick="switchTab('guide'); toggleMobileMenu();" class="block w-full text-start px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-700 hover:bg-slate-100" data-i18n="nav_guide">دليل التخطيط</button>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+
+        <!-- VIEW 1: HOME / HERO SECTION -->
+        <section id="view-home" class="view-section space-y-12">
+            <!-- Hero Banner -->
+            <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-brand-dark to-slate-900 text-white p-8 md:p-14 shadow-2xl">
+                <!-- Background decorative elements -->
+                <div class="absolute -top-24 -left-24 w-96 h-96 bg-brand/20 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-brand-accent/10 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="relative z-10 max-w-3xl space-y-6">
+                    <div class="inline-flex items-center space-x-2 rtl:space-x-reverse px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-brand-accent text-xs font-bold">
+                        <i class="fa-solid fa-sparkles"></i>
+                        <span data-i18n="hero_badge">بوابتك الاحترافية لمستقبل التقنية والأمن السيبراني</span>
+                    </div>
+                    <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight" data-i18n="hero_title">
+                        ابنِ مسيرتك التقنية بمعايير عالمية
+                    </h1>
+                    <p class="text-slate-300 text-base sm:text-lg font-normal leading-relaxed" data-i18n="hero_desc">
+                        اكتشف مسارات المستقبل التقنية والسيبرانية، وتابع تقدمك خطوة بخطوة من خلال خرائط مهارات تفاعلية ومصادر معتمدة.
+                    </p>
+                    <div class="flex flex-wrap gap-4 pt-4">
+                        <button onclick="switchTab('tracks')" class="px-8 py-4 rounded-2xl bg-brand-accent hover:bg-amber-400 text-slate-900 font-bold shadow-lg shadow-brand-accent/20 transition-all transform hover:-translate-y-0.5 flex items-center space-x-2 rtl:space-x-reverse">
+                            <i class="fa-solid fa-compass"></i>
+                            <span data-i18n="hero_btn_explore">استكشف المسارات الستة</span>
+                        </button>
+                        <button onclick="switchTab('quiz')" class="px-8 py-4 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-bold backdrop-blur-md border border-white/20 transition-all flex items-center space-x-2 rtl:space-x-reverse">
+                            <i class="fa-solid fa-wand-magic-sparkles text-brand-accent"></i>
+                            <span data-i18n="hero_btn_quiz">ابحث عن مسارك المناسب</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Stats & Highlights -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex items-center space-x-4 rtl:space-x-reverse">
+                    <div class="w-14 h-14 rounded-2xl bg-brand/10 text-brand flex items-center justify-center text-2xl font-bold">
+                        <i class="fa-solid fa-layer-group"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-black text-slate-900">6</h3>
+                        <p class="text-sm font-medium text-slate-500" data-i18n="stat_tracks">مسارات تقنية متكاملة</p>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex items-center space-x-4 rtl:space-x-reverse">
+                    <div class="w-14 h-14 rounded-2xl bg-amber-500/10 text-amber-600 flex items-center justify-center text-2xl font-bold">
+                        <i class="fa-solid fa-list-check"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-black text-slate-900">18+</h3>
+                        <p class="text-sm font-medium text-slate-500" data-i18n="stat_levels">مستوى مهاري متدرج</p>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex items-center space-x-4 rtl:space-x-reverse">
+                    <div class="w-14 h-14 rounded-2xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center text-2xl font-bold">
+                        <i class="fa-solid fa-bullseye"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-black text-slate-900">100%</h3>
+                        <p class="text-sm font-medium text-slate-500" data-i18n="stat_interactive">تتبع تفاعلي فوري</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Featured Tracks Preview -->
+            <div class="space-y-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 class="text-2xl font-black text-slate-900" data-i18n="featured_tracks_title">المسارات التقنية المتاحة</h2>
+                        <p class="text-sm text-slate-500" data-i18n="featured_tracks_desc">انقر على أي مسار للانتقال الفوري إلى خريطة المهارات الخاصة به</p>
+                    </div>
+                    <button onclick="switchTab('tracks')" class="text-brand font-bold text-sm hover:underline flex items-center space-x-1 rtl:space-x-reverse">
+                        <span data-i18n="view_all">عرض الكل</span>
+                        <i class="fa-solid fa-arrow-left rtl:rotate-180"></i>
+                    </button>
+                </div>
+                <div id="homeTracksGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Populated dynamically via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW 2: TRACKS GUIDE -->
+        <section id="view-tracks" class="view-section hidden space-y-8">
+            <div class="text-center max-w-2xl mx-auto space-y-3">
+                <h2 class="text-3xl font-black text-slate-900" data-i18n="tracks_view_title">دليل المسارات التقنية المتخصصة</h2>
+                <p class="text-slate-600 text-base" data-i18n="tracks_view_desc">اختر المسار الذي يناسب شغفك وطموحك المهني لاستعراض تفاصيله وخارطة الطريق الخاصة به.</p>
+            </div>
+            <div id="fullTracksGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Populated dynamically via JS -->
+            </div>
+        </section>
+
+        <!-- VIEW 3: SKILL ROADMAP -->
+        <section id="view-roadmap" class="view-section hidden space-y-8">
+            <!-- Roadmap Header Control Bar -->
+            <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="flex items-center space-x-4 rtl:space-x-reverse w-full md:w-auto">
+                    <div id="currentTrackIcon" class="w-16 h-16 rounded-2xl bg-brand/10 text-brand flex items-center justify-center text-3xl shadow-inner">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-wider text-brand px-2.5 py-1 rounded-full bg-brand/10" data-i18n="roadmap_badge">خريطة الطريق المهنية</span>
+                        <h2 id="currentTrackTitle" class="text-2xl font-black text-slate-900 mt-1">الأمن السيبراني</h2>
+                    </div>
+                </div>
+
+                <!-- Track Selector & Progress -->
+                <div class="flex flex-col sm:flex-row items-center gap-4 w-full md:w-auto">
+                    <select id="trackSelector" onchange="changeActiveTrack(this.value)" class="w-full sm:w-64 bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-sm font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand">
+                        <!-- Options generated dynamically -->
+                    </select>
+
+                    <div class="w-full sm:w-48 bg-slate-100 p-3 rounded-2xl border border-slate-200">
+                        <div class="flex justify-between items-center mb-1 text-xs font-bold text-slate-700">
+                            <span data-i18n="progress_label">التقدم الكلي</span>
+                            <span id="progressPercentText">0%</span>
+                        </div>
+                        <div class="w-full bg-slate-200 h-2.5 rounded-full overflow-hidden">
+                            <div id="overallProgressBar" class="bg-brand h-full transition-all duration-500 rounded-full" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3 Levels Accordions / Cards Container -->
+            <div id="roadmapLevelsContainer" class="space-y-6">
+                <!-- Populated dynamically via JS -->
+            </div>
+        </section>
+
+        <!-- VIEW 4: PATH QUIZ -->
+        <section id="view-quiz" class="view-section hidden space-y-8">
+            <div class="max-w-3xl mx-auto bg-white p-8 md:p-12 rounded-3xl border border-slate-200 shadow-sm">
+                <!-- Quiz Header -->
+                <div class="text-center space-y-3 mb-8">
+                    <div class="inline-flex items-center space-x-2 rtl:space-x-reverse px-3 py-1 rounded-full bg-brand/10 text-brand text-xs font-bold">
+                        <i class="fa-solid fa-clipboard-question"></i>
+                        <span data-i18n="quiz_badge">مستشار المسارات الذكي</span>
+                    </div>
+                    <h2 class="text-2xl md:text-3xl font-black text-slate-900" data-i18n="quiz_title">اختر مسارك التقني المناسب لشخصيتك</h2>
+                    <p class="text-slate-500 text-sm md:text-base" data-i18n="quiz_desc">أجب عن الأسئلة التالية بدقة لنقترح عليك المسار التقني الأنسب لمهاراتك واهتماماتك.</p>
+                </div>
+
+                <!-- Quiz Question Card -->
+                <div id="quizContainer" class="space-y-6">
+                    <!-- Populated dynamically -->
+                </div>
+
+                <!-- Quiz Result Box -->
+                <div id="quizResultContainer" class="hidden space-y-6 text-center bg-gradient-to-br from-brand-surface to-emerald-50 p-8 rounded-3xl border border-brand/20">
+                    <div class="w-20 h-20 bg-brand text-white rounded-3xl mx-auto flex items-center justify-center text-4xl shadow-lg shadow-brand/30">
+                        <i id="resultIcon" class="fa-solid fa-award text-brand-accent"></i>
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="text-xs font-bold text-brand uppercase tracking-wider" data-i18n="quiz_result_badge">المسار المقترح لك</h3>
+                        <h2 id="resultTrackTitle" class="text-3xl font-black text-slate-900"></h2>
+                        <p id="resultTrackDesc" class="text-slate-600 max-w-xl mx-auto text-sm md:text-base"></p>
+                    </div>
+                    <div class="pt-4 flex justify-center gap-4">
+                        <button onclick="goToResultTrack()" class="px-8 py-3.5 rounded-xl bg-brand hover:bg-brand-dark text-white font-bold shadow-md transition-all flex items-center space-x-2 rtl:space-x-reverse">
+                            <span data-i18n="quiz_btn_start">ابدأ خريطة هذا المسار</span>
+                            <i class="fa-solid fa-arrow-left rtl:rotate-180"></i>
+                        </button>
+                        <button onclick="resetQuiz()" class="px-6 py-3.5 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold transition-all">
+                            <span data-i18n="quiz_btn_retake">إعادة الاختبار</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- VIEW 5: PLANNING GUIDE -->
+        <section id="view-guide" class="view-section hidden space-y-8">
+            <div class="text-center max-w-2xl mx-auto space-y-3">
+                <h2 class="text-3xl font-black text-slate-900" data-i18n="guide_view_title">دليل التخطيط والتميز المهني</h2>
+                <p class="text-slate-600 text-base" data-i18n="guide_view_desc">نصائح وإرشادات استراتيجية لضمان النجاح والتفوق في مجالك التقني والسيبراني.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Guide Card 1 -->
+                <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+                    <div class="w-14 h-14 rounded-2xl bg-brand/10 text-brand flex items-center justify-center text-2xl font-bold">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900" data-i18n="guide_1_title">الأساسيات قبل التخصص</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed" data-i18n="guide_1_desc">لا تقفز مباشرة نحو الشهادات المتقدمة. ابدأ بفهم أسس شبكات الحاسب، نظم التشغيل، ومفاهيم البرمجة الأساسية (Python / Linux) لأنها تشكل العمود الفقري لكافة المسارات.</p>
+                </div>
+
+                <!-- Guide Card 2 -->
+                <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+                    <div class="w-14 h-14 rounded-2xl bg-amber-500/10 text-amber-600 flex items-center justify-center text-2xl font-bold">
+                        <i class="fa-solid fa-certificate"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900" data-i18n="guide_2_title">الشهادات المهنية المعتمدة</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed" data-i18n="guide_2_desc">عزز سيرتك الذاتية بشهادات معترف بها دولياً مثل CompTIA Security+, CEH في السيبراني، أو شهادات AWS / GCP في الحوسبة والسحابة، و OSCP للمختترقين الأخلاقيين المتقدمين.</p>
+                </div>
+
+                <!-- Guide Card 3 -->
+                <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+                    <div class="w-14 h-14 rounded-2xl bg-indigo-500/10 text-indigo-600 flex items-center justify-center text-2xl font-bold">
+                        <i class="fa-solid fa-laptop-code"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900" data-i18n="guide_3_title">المشاريع العملية والتطبيق</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed" data-i18n="guide_3_desc">المعرفة النظرية وحدها لا تكفي. ابنِ مشاريع حقيقية على GitHub، شارك في منصات التحديات (مثل HackTheBox أو LeetCode)، وثق إنجازاتك التقنية بشكل مستمر.</p>
+                </div>
+
+                <!-- Guide Card 4 -->
+                <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm space-y-4">
+                    <div class="w-14 h-14 rounded-2xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center text-2xl font-bold">
+                        <i class="fa-solid fa-users-viewfinder"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900" data-i18n="guide_4_title">التواصل وبناء العلاقات</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed" data-i18n="guide_4_desc">انضم إلى مجتمعات التقنية والأمن السيبراني، احضر اللقاءات وورش العمل (Meetups)، وتابع الخبراء على منصات التواصل المهني مثل لينكد إن لتبقى مطلعاً على أحدث التقنيات.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 mt-16 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-start">
+            <div class="flex items-center space-x-3 rtl:space-x-reverse">
+                <div class="w-10 h-10 rounded-xl bg-brand flex items-center justify-center text-white">
+                    <i class="fa-solid fa-shield-halved text-brand-accent"></i>
+                </div>
+                <div>
+                    <p class="font-bold text-slate-900 text-sm" data-i18n="footer_title">مسار التقنية والسيبراني</p>
+                    <p class="text-xs text-slate-500" data-i18n="footer_rights">جميع الحقوق محفوظة © 2026</p>
+                </div>
+            </div>
+            <p class="text-xs text-slate-500 max-w-md" data-i18n="footer_desc">منصة تعليمة تفاعلية مصممة لإرشاد المهتمين والمحترفين في مجالات التقنية والذكاء الاصطناعي والأمن السيبراني.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Application Logic & Data -->
+    <script>
+        // -------------------------------------------------------------
+        // TRANSLATIONS DATA DICTIONARY
+        // -------------------------------------------------------------
+        const translations = {
+            ar: {
+                brand_title: "مسار التقنية والسيبراني",
+                brand_subtitle: "Tech & Cyber Path",
+                nav_home: "الرئيسية",
+                nav_tracks: "دليل المسارات",
+                nav_roadmap: "خريطة المهارات",
+                nav_quiz: "اختبار تحديد المسار",
+                nav_guide: "دليل التخطيط",
+                hero_badge: "بوابتك الاحترافية لمستقبل التقنية والأمن السيبراني",
+                hero_title: "ابنِ مسيرتك التقنية بمعايير عالمية",
+                hero_desc: "اكتشف مسارات المستقبل التقنية والسيبرانية، وتابع تقدمك خطوة بخطوة من خلال خرائط مهارات تفاعلية ومصادر معتمدة.",
+                hero_btn_explore: "استكشف المسارات الستة",
+                hero_btn_quiz: "ابحث عن مسارك المناسب",
+                stat_tracks: "مسارات تقنية متكاملة",
+                stat_levels: "مستوى مهاري متدرج",
+                stat_interactive: "تتبع تفاعلي فوري",
+                featured_tracks_title: "المسارات التقنية المتاحة",
+                featured_tracks_desc: "انقر على أي مسار للانتقال الفوري إلى خريطة المهارات الخاصة به",
+                view_all: "عرض الكل",
+                tracks_view_title: "دليل المسارات التقنية المتخصصة",
+                tracks_view_desc: "اختر المسار الذي يناسب شغفك وطموحك المهني لاستعراض تفاصيله وخارطة الطريق الخاصة به.",
+                roadmap_badge: "خريطة الطريق المهنية",
+                progress_label: "التقدم الكلي",
+                quiz_badge: "مستشار المسارات الذكي",
+                quiz_title: "اختر مسارك التقني المناسب لشخصيتك",
+                quiz_desc: "أجب عن الأسئلة التالية بدقة لنقترح عليك المسار التقني الأنسب لمهاراتك واهتماماتك.",
+                quiz_result_badge: "المسار المقترح لك",
+                quiz_btn_start: "ابدأ خريطة هذا المسار",
+                quiz_btn_retake: "إعادة الاختبار",
+                guide_view_title: "دليل التخطيط والتميز المهني",
+                guide_view_desc: "نصائح وإرشادات استراتيجية لضمان النجاح والتفوق في مجالك التقني والسيبراني.",
+                guide_1_title: "الأساسيات قبل التخصص",
+                guide_1_desc: "لا تقفز مباشرة نحو الشهادات المتقدمة. ابدأ بفهم أسس شبكات الحاسب، نظم التشغيل، ومفاهيم البرمجة الأساسية (Python / Linux) لأنها تشكل العمود الفقري لكافة المسارات.",
+                guide_2_title: "الشهادات المهنية المعتمدة",
+                guide_2_desc: "عزز سيرتك الذاتية بشهادات معترف بها دولياً مثل CompTIA Security+, CEH في السيبراني، أو شهادات AWS / GCP في الحوسبة والسحابة، و OSCP للمختترقين الأخلاقيين المتقدمين.",
+                guide_3_title: "المشاريع العملية والتطبيق",
+                guide_3_desc: "المعرفة النظرية وحدها لا تكفي. ابنِ مشاريع حقيقية على GitHub، شارك في منصات التحديات (مثل HackTheBox أو LeetCode)، وثق إنجازاتك التقنية بشكل مستمر.",
+                guide_4_title: "التواصل وبناء العلاقات",
+                guide_4_desc: "انضم إلى مجتمعات التقنية والأمن السيبراني، احضر اللقاءات وورش العمل (Meetups)، وتابع الخبراء على منصات التواصل المهني مثل لينكد إن لتبقى مطلعاً على أحدث التقنيات.",
+                footer_title: "مسار التقنية والسيبراني",
+                footer_rights: "جميع الحقوق محفوظة © 2026",
+                footer_desc: "منصة تعليمة تفاعلية مصممة لإرشاد المهتمين والمحترفين في مجالات التقنية والذكاء الاصطناعي والأمن السيبراني.",
+                btn_start_track: "ابدأ المسار",
+                level_beginner: "المستوى الأساسي (المبتدئ)",
+                level_intermediate: "المستوى المتوسط (المحترف)",
+                level_advanced: "المستوى المتقدم (الخبير)",
+                btn_next_question: "السؤال التالي",
+                btn_prev_question: "السابق",
+                question_label: "السؤال"
+            },
+            en: {
+                brand_title: "Tech & Cyber Path",
+                brand_subtitle: "مسار التقنية والسيبراني",
+                nav_home: "Home",
+                nav_tracks: "Tracks Guide",
+                nav_roadmap: "Skill Roadmap",
+                nav_quiz: "Path Quiz",
+                nav_guide: "Planning Guide",
+                hero_badge: "Your Professional Gateway to Tech & Cybersecurity",
+                hero_title: "Build Your Tech Career with Global Standards",
+                hero_desc: "Discover future tech and cybersecurity paths, and track your progress step-by-step through interactive skill roadmaps and certified resources.",
+                hero_btn_explore: "Explore All 6 Tracks",
+                hero_btn_quiz: "Find Your Ideal Path",
+                stat_tracks: "Integrated Tech Tracks",
+                stat_levels: "Progressive Skill Levels",
+                stat_interactive: "Real-time Progress Tracking",
+                featured_tracks_title: "Available Tech Tracks",
+                featured_tracks_desc: "Click on any track to instantly switch to its skill roadmap",
+                view_all: "View All",
+                tracks_view_title: "Specialized Tech Tracks Guide",
+                tracks_view_desc: "Choose the path that matches your passion and career ambition to explore its details and roadmap.",
+                roadmap_badge: "Career Roadmap",
+                progress_label: "Overall Progress",
+                quiz_badge: "Smart Path Advisor",
+                quiz_title: "Choose Your Ideal Technical Path",
+                quiz_desc: "Answer the following questions accurately so we can recommend the best technical track for your skills and interests.",
+                quiz_result_badge: "Recommended Path For You",
+                quiz_btn_start: "Start This Track Roadmap",
+                quiz_btn_retake: "Retake Quiz",
+                guide_view_title: "Planning & Professional Excellence Guide",
+                guide_view_desc: "Strategic advice and tips to ensure success and excellence in your tech and cybersecurity career.",
+                guide_1_title: "Fundamentals Before Specialization",
+                guide_1_desc: "Don't jump straight into advanced certs. Start by understanding computer networking, operating systems, and basic programming concepts (Python / Linux) as they form the backbone.",
+                guide_2_title: "Certified Professional Certificates",
+                guide_2_desc: "Boost your resume with globally recognized certs like CompTIA Security+, CEH for cybersecurity, AWS / GCP for cloud computing, and OSCP for advanced ethical hackers.",
+                guide_3_title: "Practical Projects & Hands-on",
+                guide_3_desc: "Theoretical knowledge isn't enough. Build real projects on GitHub, participate in CTFs / platforms (like HackTheBox or LeetCode), and continuously document your achievements.",
+                guide_4_title: "Networking & Community",
+                guide_4_desc: "Join tech and cyber communities, attend meetups and workshops, and follow industry experts on professional networks like LinkedIn to stay updated.",
+                footer_title: "Tech & Cyber Path",
+                footer_rights: "All Rights Reserved © 2026",
+                footer_desc: "An interactive educational platform designed to guide enthusiasts and professionals in tech, AI, and cybersecurity.",
+                btn_start_track: "Start Track",
+                level_beginner: "Beginner Level",
+                level_intermediate: "Intermediate Level",
+                level_advanced: "Advanced Level",
+                btn_next_question: "Next Question",
+                btn_prev_question: "Previous",
+                question_label: "Question"
+            }
+        };
+
+        // -------------------------------------------------------------
+        // TRACKS & ROADMAPS DATA (6 Tracks, 3 Levels Each)
+        // -------------------------------------------------------------
+        const tracksData = {
+            cybersecurity: {
+                id: 'cybersecurity',
+                icon: 'fa-shield-halved',
+                color: 'text-red-500',
+                bg: 'bg-red-500/10',
+                title: { ar: 'الأمن السيبراني', en: 'Cybersecurity' },
+                desc: {
+                    ar: 'حماية الأنظمة والشبكات والبيانات من الهجمات الإلكترونية والاختراقات الرقمية.',
+                    en: 'Protecting systems, networks, and data from cyber attacks and digital breaches.'
+                },
+                levels: [
+                    {
+                        name: { ar: 'المستوى الأساسي: أساسيات الشبكات ونظم التشغيل', en: 'Beginner Level: Networks & OS Foundations' },
+                        skills: [
+                            { ar: 'فهم نموذج OSI وأساسيات شبكات TCP/IP', en: 'Understanding OSI Model & TCP/IP Basics' },
+                            { ar: 'أساسيات نظام التشغيل لينكس (Linux CLI)', en: 'Linux Operating System Basics (Linux CLI)' },
+                            { ar: 'مفاهيم أمن المعلومات الأساسية (CIA Triad)', en: 'Information Security Fundamentals (CIA Triad)' },
+                            { ar: 'أساسيات التشفير وعلم التعمية (Encryption Basics)', en: 'Basic Cryptography & Encryption Concepts' }
+                        ]
+                    },
+                    {
+                        name: { ar: 'المستوى المتوسط: الاختبار الأخلاقي والدفاع', en: 'Intermediate Level: Ethical Hacking & Defense' },
+                        skills: [
+                            { ar: 'فحص الثغرات وتقييم المخاطر (Vulnerability Assessment)', en: 'Vulnerability Assessment & Risk Management' },
+                            { ar: 'استخدام أداة Nmap وأدوات تحليل الحزم (Wireshark)', en: 'Using Nmap & Packet Analysis Tools (Wireshark)' },
+                            { ar: 'اختبار اختراق تطبيقات الويب (OWASP Top 10)', en: 'Web Application Penetration Testing (OWASP Top 10)' },
+                            { ar: 'إدارة الحوادث السيبرانية والاستجابة لها (Incident Response)', en: 'Cyber Incident Management & Response' }
+                        ]
+                    },
+                    {
+                        name: { ar: 'المستوى المتقدم: الاختراق المتقدم والتحليل الجنائي', en: 'Advanced Level: Advanced Pentesting & Forensics' },
+                        skills: [
+                            { ar: 'التحليل الجنائي الرقمي واستخراج الأدلة (Digital Forensics)', en: 'Digital Forensics & Evidence Extraction' },
+                            { ar: 'اختبار اختراق الشبكات المتقدم (Active Directory Pentesting)', en: 'Advanced Network Pentesting (Active Directory)' },
+                            { ar: 'هندسة العكسية للبرمجيات الخبيثة (Malware Analysis)', en: 'Malware Reverse Engineering' },
+                            { ar: 'شهادات احترافية متقدمة (OSCP, CISSP)', en: 'Advanced Professional Certificates (OSCP, CISSP)' }
+                        ]
+                    }
+                ]
+            },
+            computer_science: {
+                id: 'computer_science',
+                icon: 'fa-laptop-code',
+                color: 'text-blue-500',
+                bg: 'bg-blue-500/10',
+                title: { ar: 'علوم الحاسب', en: 'Computer Science' },
+                desc: {
+                    ar: 'دراسة الخوارزميات، الهياكل البيانات، الأسس النظرية للحوسبة وتطوير البرمجيات.',
+                    en: 'Study of algorithms, data structures, theoretical computing foundations, and software.'
+                },
+                levels: [
+                    {
+                        name: { ar: 'المستوى الأساسي: البرمجة وأساسيات الخوارزميات', en: 'Beginner Level: Programming & Basic Algorithms' },
+                        skills: [
+                            { ar: 'إتقان لغة برمجة أساسية (Python أو C++)', en: 'Mastering a core programming language (Python or C++)' },
+                            { ar: 'فهم المتغيرات، الدوال، وهياكل التحكم', en: 'Understanding variables, functions, and control structures' },
+                            { ar: 'مفاهيم البرمجة كائنية التوجه (OOP Basics)', en: 'Object-Oriented Programming (OOP Basics)' },
+                            { ar: 'حل المشكلات البرمجية البسيطة', en: 'Solving basic programming problems' }
+                        ]
+                    },
+                    {
+                        name: { ar: 'المستوى المتوسط: هياكل البيانات والخوارزميات المتقدمة', en: 'Intermediate Level: Data Structures & Advanced Algorithms' },
+                        skills: [
+                            { ar: 'هياكل البيانات (Arrays, Linked Lists, Trees, Graphs)', en: 'Data Structures (Arrays, Linked Lists, Trees, Graphs)' },
+                            { ar: 'تحليل تعقيد الخوارزميات (Big O Notation)', en: 'Algorithm Complexity Analysis (Big O Notation)' },
+                            { ar: 'خوارزميات البحث والفرز (Sorting & Searching Algorithms)', en: 'Sorting & Searching Algorithms' },
+                            { ar: 'أنظمة قواعد البيانات و SQL', en: 'Database Systems & SQL' }
+                        ]
+                    },
+                    {
+                        name: { ar: 'المستوى المتقدم: النظم الموزعة ونظرية الحوسبة', en: 'Advanced Level: Distributed Systems & Theory' },
+                        skills: [
+                            { ar: 'تصميم النظم الموزعة واسعة النطاق (Distributed Systems)', en: 'Large-scale Distributed Systems Design' },
+                            { ar: 'الذكاء الاصطناعي وتعلم الآلة النظري', en: 'Theoretical AI and Machine Learning' },
+                            { ar: 'تصميم مترجمات اللغات البرمجية (Compilers)', en: 'Compiler Design & Language Translation' },
+                            { ar: 'الحوسبة السحابية والبنية التحتية البرمجية', en: 'Cloud Computing & Software Architecture' }
+                        ]
+                    }
+                ]
+            },
+            ai_data: {
+                id: 'ai_data',
+                icon: 'fa-brain',
+                color: 'text-purple-500',
+                bg: 'bg-purple-500/10',
+                title: { ar: 'الذكاء الاصطناعي والبيانات', en: 'AI & Data Science' },
+                desc: {
+                    ar: 'تحليل البيانات الضخمة، بناء النماذج التنبؤية، وتطوير خوارزميات التعلم العميق والذكاء الاصطناعي.',
+                    en: 'Big data analysis, predictive modeling, and developing deep learning and AI algorithms.'
+                },
+                levels: [
+                    {
+                        name: { ar: 'المستوى الأساسي: الرياضيات والتحليل الإحصائي', en: 'Beginner Level: Math & Statistical Analysis' },
+                        skills: [
+                            { ar: 'الجبر الخطي والتفاضل والتكامل للإحصاء', en: 'Linear Algebra & Calculus for Statistics' },
+                            { ar: 'برمجة بايثون لتحليل البيانات (Pandas, NumPy)', en: 'Python for Data Analysis (Pandas, NumPy)' },
+                            { ar: 'التصور المرئي للبيانات (Matplotlib, Seaborn)', en: 'Data Visualization (Matplotlib, Seaborn)' },
+                            { ar: 'تنظيف ومعالجة البيانات الخام (Data Wrangling)', en: 'Data Cleaning & Wrangling' }
+                        ]
+                    },
+                    {
+                        name: { ar: 'المستوى المتوسط: تعلم الآلة (Machine Learning)', en: 'Intermediate Level: Machine Learning' },
+                        skills: [
+                            { ar: 'خوارزميات التعلم الخاضع للإشراف (Supervised Learning)', en: 'Supervised Learning Algorithms' },
+                            { ar: 'خوارزميات التعلم غير الخاضع للإشراف (Unsupervised Learning)', en: 'Unsupervised Learning Algorithms' },
+                            { ar: 'تقييم النماذج وتحسين الأداء (Model Evaluation)', en: 'Model Evaluation & Performance Tuning' },
+                            { ar: 'استخدام مكتبة Scikit-Learn', en: 'Using Scikit-Learn Library' }
+                        ]
+                    },
+                    {
+                        name: { ar: 'المستوى المتقدم: التعلم العميق والذكاء التوليدي', en: 'Advanced Level: Deep Learning & Generative AI' },
+                        skills: [
+                            { ar: 'الشبكات العصبية الاصطناعية (Neural Networks & PyTorch/TensorFlow)', en: 'Neural Networks (PyTorch / TensorFlow)' },
+                            { ar: 'معالجة اللغات الطبيعية (NLP & LLMs)', en: 'Natural Language Processing (NLP & LLMs)' },
+                            { ar: 'رؤية الكمبيوتر (Computer Vision)', en: 'Computer Vision & Image Processing' },
+                            { ar: 'هندسة النماذج التوليدية (Generative AI Engineering)', en: 'Generative AI Engineering' }
+                        ]
+                    }
+                ]
+            },
+            software_engineering: {
+                id: 'software_engineering',
+                icon: 'fa-code-merge',
+                color: 'text-emerald-500',
+                bg: 'bg-emerald-500/10',
+                title: { ar: 'هندسة البرمجيات', en: 'Software Engineering' },
+                desc: {
+                    ar: 'تصميم، تطوير، واختبار الأنظمة البرمجية الضخمة بكفاءة عالية ومنهجيات هندسية معتمدة.',
+                    en: 'Designing, developing, and testing large-scale software systems with high engineering standards.'
+                },
+                levels: [
+                    {
+                        name: { ar: 'المستوى الأساسي: أساسيات الويب والبرمجة المعيارية', en: 'Beginner Level: Web Basics & Modular Programming' },
+                        skills: [
+                            { ar: 'أساسيات HTML, CSS, JavaScript', en: 'HTML, CSS, JavaScript Fundamentals' },
+                            { ar: 'التحكم بالإصدارات باستخدام Git و GitHub', en: 'Version Control with Git & GitHub' },
+                            { ar: 'تصميم واجهات برمجة التطبيقات البسيطة (REST APIs)', en: 'Basic REST APIs Design' },
+                            { ar: 'مفاهيم البرمجة المعيارية وتقسيم الكود', en: 'Modular Programming Concepts' }
+                        ]
+                    },
+                    {
+                        name: { ar: 'المستوى المتوسط: تطوير الأنظمة المتكاملة (Full-Stack)', en: 'Intermediate Level: Full-Stack Development' },
+                        skills: [
+                            { ar: 'إتقان إطار عمل للواجهات الأمامية (React أو Angular)', en: 'Frontend Framework Mastery (React or Angular)' },
+                            { ar: 'تطوير الخوادم الخلفية (Node.js أو Python/Django)', en: 'Backend Development (Node.js or Python/Django)' },
+                            { ar: 'إدارة قواعد البيانات العلائقية وغير العلائقية (SQL / NoSQL)', en: 'Relational & Non-Relational Databases' },
+                            { ar: 'اختبار الوحدات البرمجية (Unit Testing)', en: 'Unit Testing & Quality Assurance' }
+                        ]
+                    },
+                    {
+                        name: { ar: 'المستوى المتقدم: هندسة النظم والتشغيل الآلي (DevOps)', en: 'Advanced Level: System Architecture & DevOps' },
+                        skills: [
+                            { ar: 'أنماط تصميم البرمجيات (Design Patterns & Microservices)', en: 'Software Design Patterns & Microservices' },
+                            { ar: 'الحاويات البرمجية وأدوات الإدارة (Docker & Kubernetes)', en: 'Containerization & Orchestration (Docker & Kubernetes)' },
+                            { ar: 'خطوط التكامل والنشر المستمر (CI/CD Pipelines)', en: 'Continuous Integration & Deployment (CI/CD)' },
+                            { ar: 'إدارة السحابة وضمان الأمان البرمجي (DevSecOps)', en: 'Cloud Management & Software Security (DevSecOps)' }
+                        ]
+                    }
+                ]
+            },
+            hci_ux: {
+                id: 'hci_ux',
+                icon: 'fa-pen-nib',
+                color: 'text-amber-500',
+                bg: 'bg-amber-500/10',
+                title: { ar: 'التفاعل البشري الحاسوبي (HCI & UI/UX)', en: 'HCI & UI/UX Design' },
+                desc: {
+                    ar: 'دراسة تفاعل الإنسان مع التكنولوجيا وتصميم تجارب مستخدم متميزة وسهلة الاستخدام.',
+                    en: 'Studying human-computer interaction and designing exceptional, user-friendly experiences.'
+                },
+                levels: [
+                    {
+                        name: { ar: 'المستوى الأساسي: مبادئ تجربة المستخدم وعلم النفس', en: 'Beginner Level: UX Principles & Psychology' },
+                        skills: [
+                            { ar: 'مبادئ علم النفس الإدراكي والتفاعل البشري', en: 'Cognitive Psychology & Human Interaction Principles' },
+                            { ar: 'أبحاث المستخدم وإجراء المقابلات (User Research)', en: 'User Research & Conducting Interviews' },
+                            { ar: 'بناء شخصيات المستخدمين وخرائط التعاطف (Personas & Empathy Maps)', en: 'User Personas & Empathy Maps' },
+                            { ar: 'أساسيات هندسة المعلومات (Information Architecture)', en: 'Information Architecture Basics' }
+                        ]
+                    },
+                    {
+                        name: { ar: 'المستوى المتوسط: التصميم التفاعلي والنماذج الأولية', en: 'Intermediate Level: Interactive Design & Prototyping' },
+                        skills: [
+                            { ar: 'إتقان أدوات التصميم الاحترافية (Figma / Adobe XD)', en: 'Mastering Design Tools (Figma / Adobe XD)' },
+                            { ar: 'تصميم النماذج الأولية التفاعلية (Wireframes & Prototypes)', en: 'Interactive Wireframes & Prototypes' },
+                            { ar: 'مبادئ تصميم واجهات المستخدم (UI Design & Design Systems)', en: 'UI Design Principles & Design Systems' },
+                            { ar: 'إمكانية الوصول وسهولة الاستخدام (Accessibility / WCAG)', en: 'Accessibility & Usability (WCAG)' }
+                        ]
+                    },
+                    {
+                        name: { ar: 'المستوى المتقدم: قياس تجربة المستخدم والاستراتيجية', en: 'Advanced Level: UX Metrics & Strategy' },
+                        skills: [
+                            { ar: 'اختبارات قابلية الاستخدام المتقدمة (Usability Testing)', en: 'Advanced Usability Testing' },
+                            { ar: 'تحليلات المنتج ومقاييس تجربة المستخدم (UX Metrics & KPIs)', en: 'Product Analytics & UX Metrics' },
+                            { ar: 'استراتيجية المنتج وتجربة المستخدم شاملة Omni-channel', en: 'Product Strategy & Omni-channel UX' },
+                            { ar: 'قيادة فرق التصميم ودمج التصميم مع البرمجة', en: 'Leading Design Teams & DesignOps' }
+                        ]
+                    }
+                ]
+            },
+            computer_eng: {
+                id: 'computer_eng',
+                icon: 'fa-microchip',
+                color: 'text-indigo-500',
+                bg: 'bg-indigo-500/10',
+                title: { ar: 'هندسة الحاسب', en: 'Computer Engineering' },
+                desc: {
+                    ar: 'دمج علوم الهندسة الكهربائية وعلوم الحاسب لتصميم الأجهزة، المعالجات، والأنظمة المضمنة.',
+                    en: 'Integrating electrical engineering and computer science to design hardware, processors, and embedded systems.'
+                },
+                levels: [
+                    {
+                        name: { ar: 'المستوى الأساسي: الدوائر الإلكترونية والمنطق الرقمي', en: 'Beginner Level: Electronic Circuits & Digital Logic' },
+                        skills: [
+                            { ar: 'الدوائر الكهربائية والتحليل المنطقي (Digital Logic Design)', en: 'Electric Circuits & Digital Logic Design' },
+                            { ar: 'لغات وصف العتاد (Verilog أو VHDL أساسيات)', en: 'Hardware Description Languages (Verilog / VHDL Basics)' },
+                            { ar: 'مفاهيم المعمارية الحاسوبية البسيطة (Computer Architecture)', en: 'Basic Computer Architecture Concepts' },
+                            { ar: 'أساسيات لغة التجميع (Assembly Language)', en: 'Assembly Language Basics' }
+                        ]
+                    },
+                    {
+                        name: { ar: 'المستوى المتوسط: الأنظمة المضمنة والمعالجات', en: 'Intermediate Level: Embedded Systems & Processors' },
+                        skills: [
+                            { ar: 'برمجة المتحكمات الدقيقة (Microcontrollers - Arduino / STM32)', en: 'Microcontroller Programming (Arduino / STM32)' },
+                            { ar: 'أنظمة التشغيل لحظية الاستجابة (RTOS)', en: 'Real-Time Operating Systems (RTOS)' },
+                            { ar: 'بروتوكولات الاتصال المدمجة (I2C, SPI, UART)', en: 'Embedded Communication Protocols (I2C, SPI, UART)' },
+                            { ar: 'تصميم اللوحات الإلكترونية (PCB Design Basics)', en: 'PCB Design Basics' }
+                        ]
+                    },
+                    {
+                        name: { ar: 'المستوى المتقدم: المعالجات المتقدمة وإنترنت الأشياء (IoT)', en: 'Advanced Level: Advanced Processors & IoT' },
+                        skills: [
+                            { ar: 'تصميم معالجات الحاسب المخصصة (FPGA Design & Implementation)', en: 'FPGA Design & Implementation' },
+                            { ar: 'أمن أجهزة إنترنت الأشياء (IoT Security)', en: 'Internet of Things (IoT) Security' },
+                            { ar: 'هندسة الحوسبة الحافة (Edge Computing Hardware)', en: 'Edge Computing Hardware Engineering' },
+                            { ar: 'أنظمة الأجهزة عالية الأداء (HPC Hardware)', en: 'High-Performance Computing (HPC) Hardware' }
+                        ]
+                    }
+                ]
+            }
+        };
+
+        // -------------------------------------------------------------
+        // QUIZ QUESTIONS DATA
+        // -------------------------------------------------------------
+        const quizQuestions = [
+            {
+                question: {
+                    ar: "ما هو الجانب الأكثر جذباً لانتباهك في عالم التقنية؟",
+                    en: "What aspect in the tech world attracts your attention the most?"
+                },
+                options: [
+                    { ar: "حماية الأنظمة وكشف الثغرات والهجمات الإلكترونية", en: "Protecting systems, discovering vulnerabilities & cyber attacks", track: "cybersecurity" },
+                    { ar: "فهم كيف تعمل البرمجيات بعمق والخوارزميات المعقدة", en: "Understanding how software works deeply & complex algorithms", track: "computer_science" },
+                    { ar: "تحليل البيانات الضخمة وبناء نماذج الذكاء الاصطناعي والتنبؤ", en: "Analyzing big data, building AI models & predictions", track: "ai_data" },
+                    { ar: "بناء وتطوير المواقع والمنصات والتطبيقات المتكاملة", en: "Building & developing full websites, platforms & applications", track: "software_engineering" },
+                    { ar: "تصميم واجهات المستخدم وتجربة المستخدم المريحة للمتعاملين", en: "Designing user interfaces and comfortable user experiences", track: "hci_ux" },
+                    { ar: "تصميم الأجهزة، الرقائق الإلكترونية، والأنظمة المضمنة", en: "Designing hardware, microchips, and embedded systems", track: "computer_eng" }
+                ]
+            },
+            {
+                question: {
+                    ar: "عندما تواجه مشكلة معقدة، كيف تفضل غالباً حلها؟",
+                    en: "When facing a complex problem, how do you usually prefer to solve it?"
+                },
+                options: [
+                    { ar: "البحث عن نقاط الضعف وثغرات الأمان واختبار الاستقرار", en: "Looking for weaknesses, security gaps and testing stability", track: "cybersecurity" },
+                    { ar: "تفكيك المشكلة إلى قواعد منطقية وخوارزميات برمجية دقيقة", en: "Breaking down the problem into precise logical rules and algorithms", track: "computer_science" },
+                    { ar: "الاعتماد على تحليل الأرقام والبيانات التاريخية لإيجاد الأنماط", en: "Relying on analyzing numbers and historical data to find patterns", track: "ai_data" },
+                    { ar: "بناء تطبيق أو نظام برمجي متكامل يحل المشكلة جذرياً", en: "Building an integrated software app or system to solve it fundamentally", track: "software_engineering" },
+                    { ar: "فهم احتياجات الناس ومشاعرهم وتصميم حل يناسب راحتهم", en: "Understanding people's needs and emotions and designing a comforting solution", track: "hci_ux" },
+                    { ar: "التعامل مع العتاد المادي والدوائر الإلكترونية لربط البرمجيات بالواقع", en: "Handling physical hardware and electronic circuits connecting software to reality", track: "computer_eng" }
+                ]
+            }
+        ];
+
+        // -------------------------------------------------------------
+        // APP STATE MANAGEMENT
+        // -------------------------------------------------------------
+        let currentLang = 'ar';
+        let activeTab = 'home';
+        let currentTrackId = 'cybersecurity';
+        let userProgress = {}; // { trackId: { levelIdx: { skillIdx: boolean } } }
+        let currentQuizStep = 0;
+        let quizAnswersCount = {};
+
+        // Initialize LocalStorage & State on Load
+        window.onload = function() {
+            loadProgress();
+            renderAll();
+        };
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            const body = document.getElementById('bodyRoot');
+            if (currentLang === 'en') {
+                body.classList.add('lang-en');
+                body.setAttribute('dir', 'ltr');
+                body.setAttribute('lang', 'en');
+                document.getElementById('langLabel').innerText = 'العربية';
+            } else {
+                body.classList.remove('lang-en');
+                body.setAttribute('dir', 'rtl');
+                body.setAttribute('lang', 'ar');
+                document.getElementById('langLabel').innerText = 'English';
+            }
+            renderAll();
+        }
+
+        function switchTab(tabId) {
+            activeTab = tabId;
+            // Hide all views
+            document.querySelectorAll('.view-section').forEach(el => el.classList.add('hidden'));
+            // Show active view
+            document.getElementById(`view-${tabId}`).classList.remove('hidden');
+
+            // Update Nav active states
+            ['home', 'tracks', 'roadmap', 'quiz', 'guide'].forEach(t => {
+                const btn = document.getElementById(`nav-${t}`);
+                if (btn) {
+                    if (t === tabId) {
+                        btn.className = "px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 bg-brand text-white shadow-sm";
+                    } else {
+                        btn.className = "px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 text-slate-600 hover:text-brand";
+                    }
+                }
+            });
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // -------------------------------------------------------------
+        // RENDERING FUNCTIONS
+        // -------------------------------------------------------------
+        function renderAll() {
+            updateStaticTexts();
+            renderHomeTracks();
+            renderFullTracks();
+            renderTrackSelector();
+            renderRoadmap();
+            renderQuiz();
+        }
+
+        function updateStaticTexts() {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[currentLang][key]) {
+                    el.innerText = translations[currentLang][key];
+                }
+            });
+        }
+
+        function renderHomeTracks() {
+            const grid = document.getElementById('homeTracksGrid');
+            grid.innerHTML = '';
+            Object.values(tracksData).forEach(track => {
+                const card = document.createElement('div');
+                card.className = "bg-white p-6 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between cursor-pointer group";
+                card.onclick = () => {
+                    currentTrackId = track.id;
+                    switchTab('roadmap');
+                    renderRoadmap();
+                };
+                card.innerHTML = `
+                    <div class="space-y-4">
+                        <div class="w-14 h-14 rounded-2xl ${track.bg} ${track.color} flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+                            <i class="fa-solid ${track.icon}"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-900 group-hover:text-brand transition-colors">${track.title[currentLang]}</h3>
+                            <p class="text-slate-500 text-sm mt-1 line-clamp-2">${track.desc[currentLang]}</p>
+                        </div>
+                    </div>
+                    <div class="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between text-brand text-sm font-bold">
+                        <span>${translations[currentLang].btn_start_track}</span>
+                        <i class="fa-solid fa-arrow-left rtl:rotate-180 group-hover:-translate-x-1 transition-transform"></i>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function renderFullTracks() {
+            const grid = document.getElementById('fullTracksGrid');
+            grid.innerHTML = '';
+            Object.values(tracksData).forEach(track => {
+                const card = document.createElement('div');
+                card.className = "bg-white p-8 rounded-3xl border border-slate-200 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between group";
+                card.innerHTML = `
+                    <div class="space-y-4">
+                        <div class="w-16 h-16 rounded-2xl ${track.bg} ${track.color} flex items-center justify-center text-3xl group-hover:scale-110 transition-transform">
+                            <i class="fa-solid ${track.icon}"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-slate-900">${track.title[currentLang]}</h3>
+                            <p class="text-slate-500 text-sm mt-2 leading-relaxed">${track.desc[currentLang]}</p>
+                        </div>
+                    </div>
+                    <div class="pt-6 mt-6 border-t border-slate-100">
+                        <button onclick="selectTrackAndRoadmap('${track.id}')" class="w-full py-3 rounded-xl bg-slate-100 hover:bg-brand hover:text-white text-slate-700 font-bold transition-all text-sm flex items-center justify-center space-x-2 rtl:space-x-reverse">
+                            <span>${translations[currentLang].btn_start_track}</span>
+                            <i class="fa-solid fa-arrow-left rtl:rotate-180"></i>
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function selectTrackAndRoadmap(trackId) {
+            currentTrackId = trackId;
+            switchTab('roadmap');
+            renderRoadmap();
+        }
+
+        function renderTrackSelector() {
+            const selector = document.getElementById('trackSelector');
+            selector.innerHTML = '';
+            Object.values(tracksData).forEach(track => {
+                const opt = document.createElement('option');
+                opt.value = track.id;
+                opt.innerText = track.title[currentLang];
+                if (track.id === currentTrackId) opt.selected = true;
+                selector.appendChild(opt);
+            });
+        }
+
+        function changeActiveTrack(trackId) {
+            currentTrackId = trackId;
+            renderRoadmap();
+        }
+
+        // -------------------------------------------------------------
+        // ROADMAP & PROGRESS LOGIC
+        // -------------------------------------------------------------
+        function loadProgress() {
+            const saved = localStorage.getItem('tech_cyber_progress');
+            if (saved) {
+                try {
+                    userProgress = JSON.parse(saved);
+                } catch (e) {
+                    userProgress = {};
+                }
+            }
+        }
+
+        function saveProgress() {
+            localStorage.setItem('tech_cyber_progress', JSON.stringify(userProgress));
+        }
+
+        function toggleSkill(trackId, levelIdx, skillIdx) {
+            if (!userProgress[trackId]) userProgress[trackId] = {};
+            if (!userProgress[trackId][levelIdx]) userProgress[trackId][levelIdx] = {};
+            
+            userProgress[trackId][levelIdx][skillIdx] = !userProgress[trackId][levelIdx][skillIdx];
+            saveProgress();
+            renderRoadmap();
+        }
+
+        function renderRoadmap() {
+            const track = tracksData[currentTrackId];
+            if (!track) return;
+
+            // Update Header Info
+            document.getElementById('currentTrackTitle').innerText = track.title[currentLang];
+            const iconContainer = document.getElementById('currentTrackIcon');
+            iconContainer.className = `w-16 h-16 rounded-2xl ${track.bg} ${track.color} flex items-center justify-center text-3xl shadow-inner`;
+            iconContainer.innerHTML = `<i class="fa-solid ${track.icon}"></i>`;
+
+            // Calculate overall progress for this track
+            let totalSkills = 0;
+            let completedSkills = 0;
+
+            track.levels.forEach((level, lIdx) => {
+                level.skills.forEach((_, sIdx) => {
+                    totalSkills++;
+                    if (userProgress[currentTrackId] && userProgress[currentTrackId][lIdx] && userProgress[currentTrackId][lIdx][sIdx]) {
+                        completedSkills++;
+                    }
+                });
+            });
+
+            const percent = totalSkills > 0 ? Math.round((completedSkills / totalSkills) * 100) : 0;
+            document.getElementById('progressPercentText').innerText = `${percent}%`;
+            document.getElementById('overallProgressBar').style.width = `${percent}%`;
+
+            // Render 3 levels
+            const container = document.getElementById('roadmapLevelsContainer');
+            container.innerHTML = '';
+
+            track.levels.forEach((level, lIdx) => {
+                const levelNames = [
+                    translations[currentLang].level_beginner,
+                    translations[currentLang].level_intermediate,
+                    translations[currentLang].level_advanced
+                ];
+
+                const levelCard = document.createElement('div');
+                levelCard.className = "bg-white p-6 md:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-6";
+                
+                let skillsHtml = '';
+                level.skills.forEach((skill, sIdx) => {
+                    const isChecked = userProgress[currentTrackId]?.[lIdx]?.[sIdx] || false;
+                    skillsHtml += `
+                        <label class="flex items-start space-x-3 rtl:space-x-reverse p-4 rounded-2xl bg-slate-50 hover:bg-slate-100/80 border border-slate-200/80 cursor-pointer transition-all">
+                            <input type="checkbox" ${isChecked ? 'checked' : ''} onchange="toggleSkill('${currentTrackId}', ${lIdx}, ${sIdx})" class="mt-1 w-5 h-5 text-brand rounded border-slate-300 focus:ring-brand accent-brand cursor-pointer">
+                            <span class="text-sm font-medium text-slate-800 ${isChecked ? 'line-through text-slate-400' : ''}">${skill[currentLang]}</span>
+                        </label>
+                    `;
+                });
+
+                levelCard.innerHTML = `
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                        <div class="flex items-center space-x-3 rtl:space-x-reverse">
+                            <div class="w-10 h-10 rounded-xl bg-brand/10 text-brand flex items-center justify-center font-bold text-sm">
+                                0${lIdx + 1}
+                            </div>
+                            <div>
+                                <span class="text-xs font-bold text-brand uppercase tracking-wider">${levelNames[lIdx]}</span>
+                                <h3 class="text-lg font-bold text-slate-900">${level.name[currentLang]}</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        ${skillsHtml}
+                    </div>
+                `;
+                container.appendChild(levelCard);
+            });
+        }
+
+        // -------------------------------------------------------------
+        // QUIZ LOGIC
+        // -------------------------------------------------------------
+        function renderQuiz() {
+            const container = document.getElementById('quizContainer');
+            const resultContainer = document.getElementById('quizResultContainer');
+
+            if (currentQuizStep >= quizQuestions.length) {
+                // Show Result
+                container.classList.add('hidden');
+                resultContainer.classList.remove('hidden');
+
+                // Determine winning track
+                let trackScores = {};
+                Object.keys(quizAnswersCount).forEach(track => {
+                    trackScores[track] = quizAnswersCount[track];
+                });
+                let bestTrack = 'cybersecurity';
+                let maxScore = -1;
+                Object.keys(trackScores).forEach(t => {
+                    if (trackScores[t] > maxScore) {
+                        maxScore = trackScores[t];
+                        bestTrack = t;
+                    }
+                });
+
+                window.quizRecommendedTrack = bestTrack;
+                const recTrackObj = tracksData[bestTrack];
+                document.getElementById('resultTrackTitle').innerText = recTrackObj.title[currentLang];
+                document.getElementById('resultTrackDesc').innerText = recTrackObj.desc[currentLang];
+                return;
+            }
+
+            container.classList.remove('hidden');
+            resultContainer.classList.add('hidden');
+
+            const q = quizQuestions[currentQuizStep];
+            let optionsHtml = '';
+            q.options.forEach((opt, idx) => {
+                optionsHtml += `
+                    <button onclick="selectQuizOption('${opt.track}')" class="w-full text-start p-4 rounded-2xl bg-slate-50 hover:bg-brand/5 border border-slate-200 hover:border-brand font-semibold text-slate-700 hover:text-brand transition-all flex items-center justify-between group">
+                        <span class="text-sm md:text-base">${opt.ar if currentLang === 'ar' else opt.en}</span>
+                        <div class="w-6 h-6 rounded-full border border-slate-300 group-hover:border-brand group-hover:bg-brand flex items-center justify-center text-white text-xs transition-all">
+                            <i class="fa-solid fa-check opacity-0 group-hover:opacity-100"></i>
+                        </div>
+                    </button>
+                `;
+            });
+
+            // Adjust option text based on current language
+            let currentOptionsHtml = '';
+            q.options.forEach(opt => {
+                const text = opt[currentLang];
+                currentOptionsHtml += `
+                    <button onclick="selectQuizOption('${opt.track}')" class="w-full text-start p-4 rounded-2xl bg-slate-50 hover:bg-brand/5 border border-slate-200 hover:border-brand font-semibold text-slate-700 hover:text-brand transition-all flex items-center justify-between group">
+                        <span class="text-sm md:text-base">${text}</span>
+                        <div class="w-6 h-6 rounded-full border border-slate-300 group-hover:border-brand group-hover:bg-brand flex items-center justify-center text-white text-xs transition-all">
+                            <i class="fa-solid fa-check opacity-0 group-hover:opacity-100"></i>
+                        </div>
+                    </button>
+                `;
+            });
+
+            container.innerHTML = `
+                <div class="flex items-center justify-between text-xs font-bold text-slate-400 mb-2">
+                    <span>${translations[currentLang].question_label} ${currentQuizStep + 1} / ${quizQuestions.length}</span>
+                </div>
+                <h3 class="text-xl font-bold text-slate-900 mb-6">${q.question[currentLang]}</h3>
+                <div class="space-y-3">
+                    ${currentOptionsHtml}
+                </div>
+            `;
+        }
+
+        function selectQuizOption(trackId) {
+            quizAnswersCount[trackId] = (quizAnswersCount[trackId] || 0) + 1;
+            currentQuizStep++;
+            renderQuiz();
+        }
+
+        function resetQuiz() {
+            currentQuizStep = 0;
+            quizAnswersCount = {};
+            renderQuiz();
+        }
+
+        function goToResultTrack() {
+            if (window.quizRecommendedTrack) {
+                currentTrackId = window.quizRecommendedTrack;
+                switchTab('roadmap');
+                renderRoadmap();
+            }
+        }
+    </script>
+</body>
+</html>
